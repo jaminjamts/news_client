@@ -39,14 +39,14 @@ function Header() {
 
   return (
     <AppBar position="sticky" sx={{ marginBottom: 5 }}>
-      <Container maxWidth="xl">
+      <Container>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="home"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },

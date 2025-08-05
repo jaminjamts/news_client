@@ -1,32 +1,48 @@
 // components/NewsCard.tsx
 
-import * as React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-import { NewsArticleType } from '../types/type';
+import { NewsArticleType } from '@/types/type';
 
 type Props = {
   article: NewsArticleType;
 };
 
 export default function NewsCard({ article }: Props) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (cardRef.current) {
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: 'power2.out',
+        },
+      );
+    }
+  }, []);
+
+  if (!article.author || !article.description) {
+    return null; // or fallback UI
+  }
+
   return (
-    <Card sx={{ minWidth: 300, maxWidth: 350, height: 300 }}>
+    <Card ref={cardRef} sx={{ width: 350, height: 300 }}>
       <CardMedia sx={{ height: 140 }} image={article?.urlToImage} title={article?.title} />
       <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          sx={{
-            color: 'text.primary',
-            display: '-webkit-box',
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-          }}
-        >
-          {article?.title}
+        <Typography gutterBottom variant="h5" component="div">
+          {article?.author}
         </Typography>
         <Typography
           variant="body2"
@@ -43,7 +59,7 @@ export default function NewsCard({ article }: Props) {
       </CardContent>
       <CardActions>
         <Button size="small" href={article?.url} target="_blank" rel="noopener noreferrer">
-          Дэлгэрэнгүй унших
+          Learn More
         </Button>
       </CardActions>
     </Card>
