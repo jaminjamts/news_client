@@ -38,11 +38,11 @@ export default function NewsCard({ article }: Props) {
   }
 
   return (
-    <Card ref={cardRef} sx={{ width: 350, height: 300 }}>
+    <Card ref={cardRef} sx={{ width: 350, height: 'fit' }}>
       <CardMedia sx={{ height: 140 }} image={article?.urlToImage} title={article?.title} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {article?.author}
+          {article?.title}
         </Typography>
         <Typography
           variant="body2"
@@ -59,7 +59,7 @@ export default function NewsCard({ article }: Props) {
       </CardContent>
       <CardActions>
         <Button size="small" href={article?.url} target="_blank" rel="noopener noreferrer">
-          Learn More
+          Дэлгэрэнгүй үзэх
         </Button>
       </CardActions>
     </Card>
